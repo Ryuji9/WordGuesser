@@ -1,0 +1,6 @@
+必要なツール、ライブラリ
+
+・Chrome・・・ChatGPTを操作
+・Chromeの拡張機能「Save ChatGPT」・・・回答をクリップボードにコピー
+・PythonライブラリのPyAutoGUI・・・画像認識でWebブラウザを自動操作
+・Pythonライブラリのpyperclip・・・クリップボードにコピーした情報を処理
