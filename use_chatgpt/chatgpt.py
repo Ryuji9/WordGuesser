@@ -5,10 +5,10 @@ import pyperclip
 
 class ChatGPT:
     #画像データ
-    STOP_IMG = 'C:/image_list/stop-image.png'
-    SAVE_IMG = 'C:/image_list/save-chatgpt-icon.png'
-    CLIP_IMG = 'C:/image_list/clipboard-icon.png'
-    SEND_IMG = 'C:/image_list/send-message-form-ja.png'
+    STOP_IMG = '/image_list/stop-image.png'
+    SAVE_IMG = '/image_list/save-chatgpt-icon.png'
+    CLIP_IMG = '/image_list/clipboard-icon.png'
+    SEND_IMG = '/image_list/send-message-form-ja.png'
 
     #定数
     CHROME_START_CMD = r'chrome.exe' #chrome起動コマンド
@@ -66,12 +66,12 @@ class ChatGPT:
             pag.press('enter')
             sleep(self.INPUT_KEY_SLEEP_SEC)
 
-            #print("第零段階")
+            print("第零段階")
 
             #GPTの回答が終わるまで待機
-            is_detected, p = self.wait_detecting_image(self.STOP_IMG, 0.8)
+            is_detected, p = self.wait_detecting_image(self.STOP_IMG, 0.1)
 
-            #print("第一段階")
+            print("第一段階")
 
             #GPTの回答をクリップボードに格納
             is_detected, p = self.wait_detecting_image(self.SAVE_IMG, 0.8)
@@ -79,7 +79,7 @@ class ChatGPT:
             pag.click(x, y)
             sleep(self.INPUT_KEY_SLEEP_SEC)
 
-            #print("第二段階")
+            print("第二段階")
 
             is_detected, p = self.wait_detecting_image(self.CLIP_IMG, 0.7)
             x, y = pag.center(p)
