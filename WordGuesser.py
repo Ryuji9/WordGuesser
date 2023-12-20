@@ -1,4 +1,5 @@
 import use_chatgpt.chatgpt as chatgpt
+import correct as cr
 import tkinter as tk
 import tkinter.ttk as ttk
 import random
@@ -118,7 +119,12 @@ class TalkingScene(Scene):
         ttk.Label(self.FrameTalking, text=self.TextMessage.get(), wraplength=300).pack(anchor="w")
         # AI return()
         ttk.Label(self.FrameTalking, text = answer_list[0], wraplength=300).pack(padx=20, anchor="e")
-        ttk.Label(self.FrameTalking, text ='類似度:???%', wraplength=300).pack()
+        similarity_score = cr.calculate_similarity(self.GuessWord, self.TextMessage.get())
+        if similarity_score is not None:
+            similarity = round(similarity_score*100)
+        else:
+            similarity = "???"
+        ttk.Label(self.FrameTalking, text =f'類似度:{similarity}%', wraplength=300).pack()
 
     def clear_message(self):
         self.TextMessage.set('')

@@ -4,12 +4,12 @@ import csv
 
 
 # Word2Vecモデルの読み込み
-model_path = '/data1/takabayashi/example/class/create/entity_vector.model.bin'  # モデルのパスを指定
+model_path = 'entity_vector.model.bin'  # モデルのパスを指定
 word2vec_model = KeyedVectors.load_word2vec_format(model_path, binary=True)
 
 
 # csvファイルのパス
-file_path = '/data1/takabayashi/example/class/create/probability_density_function.csv' # csvファイルのパスを指定
+file_path = 'probability_density_function.csv' # csvファイルのパスを指定
 
 
 # 確率密度関数の読み込み
@@ -63,18 +63,19 @@ def calculate_similarity(word1, word2):
 
 
 # 類似度を計算する(cos:-1~1)
-while True:
-    print("入力待ち")
-    word1 = input()
+def main():
+    while True:
+        print("入力待ち")
+        word1 = input()
 
-    if word1 == "finish": break
+        if word1 == "finish": break
 
-    print("入力待ち")
-    word2 = input()
+        print("入力待ち")
+        word2 = input()
 
-    similarity_score = calculate_similarity(word1, word2)
+        similarity_score = calculate_similarity(word1, word2)
 
-    if similarity_score is not None:
-        print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
-    else:
-        print("単語がモデルに存在しません")
+        if similarity_score is not None:
+            print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
+        else:
+            print("単語がモデルに存在しません")
