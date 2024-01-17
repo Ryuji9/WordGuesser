@@ -63,19 +63,18 @@ def calculate_similarity(word1, word2):
 
 
 # 類似度を計算する(cos:-1~1)
-def main():
-    while True:
-        print("入力待ち")
-        word1 = input()
+def main(answer, norm):
+    #print("入力待ち")
+    word1 = norm
 
-        if word1 == "finish": break
+    #print("入力待ち")
+    word2 = answer
 
-        print("入力待ち")
-        word2 = input()
+    similarity_score = calculate_similarity(word1, word2)
 
-        similarity_score = calculate_similarity(word1, word2)
+    if similarity_score is not None:
+        print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
+    else:
+        print("単語がモデルに存在しません")
 
-        if similarity_score is not None:
-            print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
-        else:
-            print("単語がモデルに存在しません")
+    return round(similarity_score*100)
