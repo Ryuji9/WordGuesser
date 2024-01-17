@@ -1,4 +1,4 @@
-# import use_chatgpt.chatgpt as chatgpt
+import use_chatgpt.chatgpt as chatgpt
 import correct as cr
 import Select_janle as sj
 import tkinter as tk
@@ -55,7 +55,7 @@ class TalkingScene(Scene):
     def __init__(self):
         super().__init__()
         self.flag = False
-        #self.chatgpt_obj = chatgpt.ChatGPT()
+        self.chatgpt_obj = chatgpt.ChatGPT()
 
         self.Canvas = tk.Canvas(self.root)
         self.FrameMessamge = tk.Frame(self.root)
@@ -87,7 +87,7 @@ class TalkingScene(Scene):
         self.Canvas.create_window((0, 0), window=self.FrameTalking, anchor="nw", width=self.ScreenSize[0], height=90000)
     
     def send_message(self):
-        if not self.flag:
+        if self.TextMessage.get() != "" and not self.flag:
             similarity_score = cr.calculate_similarity(self.GuessWord, self.TextMessage.get())
             if similarity_score is not None:
                 similarity = round(similarity_score*100)
@@ -103,12 +103,12 @@ class TalkingScene(Scene):
                 question_list = []
                 question = self.odai + self.TextMessage.get()
                 question_list.append(question)
-                #answer_list = self.chatgpt_obj.ask_chatgpt(question_list)
+                answer_list = self.chatgpt_obj.ask_chatgpt(question_list)
 
             ttk.Label(self.FrameTalking, text=self.TextMessage.get(), wraplength=300).pack(anchor="w")
             if not self.flag:
                 pass
-                #ttk.Label(self.FrameTalking, text = answer_list[0], wraplength=300).pack(padx=20, anchor="e")
+                ttk.Label(self.FrameTalking, text = answer_list[0], wraplength=300).pack(padx=20, anchor="e")
             else:
                 ttk.Label(self.FrameTalking, text = "正解！！", wraplength=300).pack(padx=20, anchor="e")
             ttk.Label(self.FrameTalking, text =f'類似度:{similarity}%', wraplength=300).pack()
