@@ -13,26 +13,26 @@ def generate_random_word(genre):
     random_word = random.choice(words)
     return random_word
 
-#ジャンルを選択
-number=int(input("ジャンルを選んでください(1.スポーツ 2.食べ物 3.動物):"))
+# #ジャンルを選択
+# number=int(input("ジャンルを選んでください(1.スポーツ 2.食べ物 3.動物):"))
 
-# ジャンルを指定
-if number == 1:
-    selected_genre = 'スポーツ'
-elif number == 2:
-    selected_genre = '食べ物'
-elif number == 3:
-    selected_genre = '動物'
-else:
-    print('正しい数字を入力してください')
+# # ジャンルを指定
+# if number == 1:
+#     selected_genre = 'スポーツ'
+# elif number == 2:
+#     selected_genre = '食べ物'
+# elif number == 3:
+#     selected_genre = '動物'
+# else:
+#     print('正しい数字を入力してください')
  
-# ランダムな単語を生成
-random_word = generate_random_word(selected_genre)
+# # ランダムな単語を生成
+# random_word = generate_random_word(selected_genre)
     
-#ジャンルから単語を生成    
-if number == 1:
-    print(f"{selected_genre}:{random_word}")
-elif number == 2:
-    print(f"{selected_genre}:{random_word}")
-else:
-    print(f"{selected_genre}:{random_word}")
+# #ジャンルから単語を生成    
+# if number == 1:
+#     print(f"{selected_genre}:{random_word}")
+# elif number == 2:
+#     print(f"{selected_genre}:{random_word}")
+# else:
+#     print(f"{selected_genre}:{random_word}")

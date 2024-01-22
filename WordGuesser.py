@@ -1,21 +1,8 @@
 import use_chatgpt.chatgpt as chatgpt
-import correct as cr
+import PickKeyword as PK
+import Select_janle as sj
 import tkinter as tk
 import tkinter.ttk as ttk
-import random
-
-# ジャンルごとの単語リスト
-genres = {
-    'スポーツ': ['サッカー', '野球', 'テニス', 'バスケットボール', 'ゴルフ'],
-    '食べ物': ['寿司', 'ラーメン', 'ピザ', '富士山', '焼肉'],
-    '動物': ['キリン', 'シマウマ', 'ライオン', '犬', '猫'],
-    }
-
-#ジャンルからランダムに単語を返す関数
-def generate_random_word(genre):
-    words = genres[genre]
-    random_word = random.choice(words)
-    return random_word
 
 class Scene:
     def __init__(self):
@@ -35,45 +22,33 @@ class TitleScene(Scene):
         super().__init__()
         self.root.deiconify()
         self.FrameTitle = tk.Frame(self.root)
-        self.FrameAccount = tk.Frame(self.FrameTitle)
-        self.FramePassword = tk.Frame(self.FrameTitle)
-        self.LabelAccount = ttk.Label(self.FrameAccount, text='アカウント名：')
-        self.EntryAccount = ttk.Entry(self.FrameAccount)
-        self.LabelAccount.grid(row=0, column=0)
-        self.EntryAccount.grid(row=0, column=1)
-        self.LabelPassword = ttk.Label(self.FramePassword, text='パスワード：')
-        self.EntryPassword = ttk.Entry(self.FramePassword, show="*")
-        self.LabelPassword.grid(row=0, column=0)
-        self.EntryPassword.grid(row=0, column=1)
         self.ButtonNext = ttk.Button(self.FrameTitle, text='ゲームスタート!!', command=lambda: self.next_window(next_scene))
         self.ButtonQuitGame = ttk.Button(self.FrameTitle, text='終了', command=self.root.destroy)
-        self.FrameAccount.pack(pady=10)
-        self.FramePassword.pack(pady=10)
         self.ButtonNext.pack(pady=10)
         self.ButtonQuitGame.pack(pady=10)
         self.FrameTitle.pack(expand=True)
 
     def next_window(self, next_scene):
-        print(f"アカウント：{self.EntryAccount.get()}")
-        print(f"パスワード：{self.EntryPassword.get()}")
         super().next_window(next_scene)
 
 class SelectScene(Scene):
     def __init__(self, next_scene):
         super().__init__()
-        # 文字を大きくする
-        self.Label = ttk.Label(self.root, text='ジャンルを選んでください')
-        self.Label.pack(expand=True)
-        self.Button_1 = ttk.Button(self.root, text='スポーツ', command=lambda: self.next_window(next_scene, genre='スポーツ'))
-        self.Button_1.pack(expand=True)
-        self.Button_2 = ttk.Button(self.root, text='食べ物', command=lambda: self.next_window(next_scene, genre='食べ物'))
-        self.Button_2.pack(expand=True)
-        self.Button_3 = ttk.Button(self.root, text='動物', command=lambda: self.next_window(next_scene, genre='動物'))
-        self.Button_3.pack(expand=True)
+        self.FrameSelect = tk.Frame(self.root)
+        self.Label = ttk.Label(self.FrameSelect, text='ジャンルを選んでください')
+        self.Label.pack(expand=True, pady=10)
+        self.Button_1 = ttk.Button(self.FrameSelect, text='スポーツ', command=lambda: self.next_window(next_scene, genre='スポーツ'))
+        self.Button_1.pack(expand=True, pady=10)
+        self.Button_2 = ttk.Button(self.FrameSelect, text='食べ物', command=lambda: self.next_window(next_scene, genre='食べ物'))
+        self.Button_2.pack(expand=True, pady=10)
+        self.Button_3 = ttk.Button(self.FrameSelect, text='動物', command=lambda: self.next_window(next_scene, genre='動物'))
+        self.Button_3.pack(expand=True, pady=10)
+        self.FrameSelect.pack(expand=True)
 
     def next_window(self, next_scene, genre):
-        next_scene.GuessWord = generate_random_word(genre)
-        print(next_scene.GuessWord)
+        next_scene.GuessWord = sj.generate_random_word(genre)
+        # debug
+        # print(next_scene.GuessWord)
         super().next_window(next_scene)
 
 class TalkingScene(Scene):
@@ -112,8 +87,8 @@ class TalkingScene(Scene):
         self.Canvas.create_window((0, 0), window=self.FrameTalking, anchor="nw", width=self.ScreenSize[0], height=90000)
     
     def send_message(self):
-        if not self.flag:
-            similarity_score = cr.calculate_similarity(self.GuessWord, self.TextMessage.get())
+        if self.TextMessage.get() != "" and not self.flag:
+            similarity_score = PK.PickKeyword(self.TextMessage.get(), self.GuessWord)
             if similarity_score is not None:
                 similarity = round(similarity_score*100)
                 if similarity == 100:
