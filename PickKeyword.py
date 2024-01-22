@@ -15,6 +15,6 @@ def PickKeyword(sentence, answer):
     for i in range(len(norm)):
         deta.append(cr.calculate_similarity(answer, norm[i]))
 
-    return max(deta)
+    return (max(deta) if len(deta)!=0 else None)
 
 # print(PickKeyword("答えは犬ですか？", "犬"))
