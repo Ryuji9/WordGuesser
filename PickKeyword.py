@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import WordGusserMeCab as MeCab
+import MeCab
 import correct as cr
 
 def PickKeyword(sentence, answer):
