@@ -10,7 +10,6 @@ def PickKeyword(sentence, answer):
         if '名詞' in i:
             lis = i.split(" ")[0]
             norm.append(lis.split('\t')[0])
-    print(norm)
 
     deta = []
     for i in range(len(norm)):
