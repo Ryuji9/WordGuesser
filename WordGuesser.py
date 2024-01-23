@@ -1,4 +1,4 @@
-import use_chatgpt.chatgpt as chatgpt
+import use_chatgpt.chatgpt_arrange as chatgpt
 import PickKeyword as PK
 import Select_janle as sj
 import tkinter as tk
