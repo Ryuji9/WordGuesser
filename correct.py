@@ -2,16 +2,6 @@
 from gensim.models import KeyedVectors
 import csv
 
-
-# Word2Vecモデルの読み込み
-model_path = 'entity_vector.model.bin'  # モデルのパスを指定
-word2vec_model = KeyedVectors.load_word2vec_format(model_path, binary=True)
-
-
-# csvファイルのパス
-file_path = 'probability_density_function.csv' # csvファイルのパスを指定
-
-
 # 確率密度関数の読み込み
 def read_csv_to_list(file_path):
     data = []
@@ -47,6 +37,13 @@ def find_closest_number_index(numbers, target):
 # 類似度を計算する関数
 def calculate_similarity(word1, word2):
 
+    # Word2Vecモデルの読み込み
+    model_path = 'entity_vector.model.bin'  # モデルのパスを指定
+    word2vec_model = KeyedVectors.load_word2vec_format(model_path, binary=True)
+
+    # csvファイルのパス
+    file_path = 'probability_density_function.csv' # csvファイルのパスを指定
+
     # csvファイルから確率密度関数を得る
     csv_data = read_csv_to_list(file_path)
 
@@ -62,19 +59,19 @@ def calculate_similarity(word1, word2):
         return None
 
 
-# 類似度を計算する(cos:-1~1)
-def main(answer, norm):
-    #print("入力待ち")
-    word1 = norm
+# # 類似度を計算する(cos:-1~1)
+# def main(answer, norm):
+#     #print("入力待ち")
+#     word1 = norm
 
-    #print("入力待ち")
-    word2 = answer
+#     #print("入力待ち")
+#     word2 = answer
 
-    similarity_score = calculate_similarity(word1, word2)
+#     similarity_score = calculate_similarity(word1, word2)
 
-    if similarity_score is not None:
-        print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
-    else:
-        print("単語がモデルに存在しません")
+#     if similarity_score is not None:
+#         print(f"「{word1}」と「{word2}」の類似度は: {round(similarity_score*100)}%")
+#     else:
+#         print("単語がモデルに存在しません")
 
-    return round(similarity_score*100)
+#     return round(similarity_score*100)

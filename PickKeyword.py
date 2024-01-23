@@ -10,11 +10,14 @@ def PickKeyword(sentence, answer):
         if '名詞' in i:
             lis = i.split(" ")[0]
             norm.append(lis.split('\t')[0])
+    print(norm)
 
     deta = []
     for i in range(len(norm)):
-        deta.append(cr.calculate_similarity(answer, norm[i]))
+        similarity = cr.calculate_similarity(answer, norm[i])
+        if similarity is not None:
+            deta.append(similarity)
 
-    return (max(deta) if len(deta)!=0 else None)
+    return max(deta) if len(deta)!=0 else None
 
 # print(PickKeyword("答えは犬ですか？", "犬"))
